@@ -1,5 +1,6 @@
 import re
 import math
+import os
 global stopWl
 
 def acentos(s):
@@ -78,11 +79,17 @@ def main():
     stopWl = leerStopW(stopW)
     stopW.close()
 
-    archi = open("test.txt",encoding='utf8')
+    #archi = open("test.txt",encoding='utf8')
+    files = os.listdir()
+    files.remove('practica1.py')
+    files.remove('practica2.py')
+    files.remove('StopWords.txt')
     aux =0
-    for i in archi.readlines():
-        documentosOriginales.append(i)
-        l = procesar(i)
+    for i in files:
+        file = open(i)
+        h = file.read()
+        documentosOriginales.append(h)
+        l = procesar(h)
         documentos.append(l)
         diccionario(l,aux)
         # contar el tf
@@ -122,6 +129,7 @@ def main():
         q = dicc_constfidf.keys()
         eux = 0
         mejor = 0
+        resultados = []
         for i in range(aux):
             for j in q:
                 myll=j+" "+str(i)
@@ -129,15 +137,32 @@ def main():
                     eux += dicc_constfidf[j] * dicc_tf_idf[myll]
                 except:
                     eux = eux
-            if eux > 0 and eux>mejor:
-                mejor = eux
-                print(eux)
-                print(documentos[i])
-                try : 
-                    print(documentosOriginales[i])
-                except:
-                    print ("error al escribir el documento")
+            if eux > 0 :#and eux>mejor:
+                l = [eux, documentosOriginales[i],i]
+                if resultados != []:
+                    if resultados[0][0]<l[0]:
+                        resultados.insert(0,l)
+                    elif resultados[-1][0]>l[0]:
+                            resultados.append(l)
+                    else:
+                        a = 0
+                        for i in resultados:
+                            if i[0]<l[0]:
+                                resultados.insert(a,l)
+                                break
+                            a += 1
+                else:
+                    resultados.append(l)
+##                mejor = eux
+##                print(eux)
+##                print(documentos[i])
+##                try : 
+##                    print(documentosOriginales[i])
+##                except:
+##                    print ("error al escribir el documento")
             eux = 0
+        for i in resultados:
+            print(i)
         
 main()
         
