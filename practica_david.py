@@ -79,15 +79,14 @@ def main():
     stopWl = leerStopW(stopW)
     stopW.close()
 
-    #archi = open("test.txt",encoding='utf8')
-    path = "C:\MGVD\FC\"
+    #archi = open("test.txt",encoding='utf8')    
+    path = "C:\\MGVD\\FC\\"    
     files = os.listdir(path)
-    files.remove('practica1.py')
-    files.remove('practica2.py')
-    files.remove('StopWords.txt')
+    
     aux =0
     for i in files:
-        file = open(i)
+        file_path = "C:\\MGVD\\FC\\" + i
+        file = open(file_path , encoding="utf-8")
         h = file.read()
         documentosOriginales.append(h)
         l = procesar(h)
@@ -162,8 +161,9 @@ def main():
 ##                except:
 ##                    print ("error al escribir el documento")
             eux = 0
+
         for i in resultados:
             print(i)
-        
+            print(resultados.index(i))
+
 main()
-        

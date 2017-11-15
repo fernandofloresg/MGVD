@@ -12,7 +12,7 @@ def intersect(l1,l2):
 
 
 
-def insertar(nodo, lista):
+def insert(nodo, lista):
     for i in range(len(lista)):
        # print(i)
         if lista[i]>nodo:
@@ -23,7 +23,7 @@ def insertar(nodo, lista):
 def union(l1,l2):
     for i in l1:
         if i not in l2:
-            l2 = insertar(i,l2)
+            l2 = insert(i,l2)
     return(l2)
 
 def diference(l1,l2):
@@ -33,7 +33,7 @@ def diference(l1,l2):
             answer.append(i)
     return answer
 
-def acentos(s):
+def deleteAccent(s):
     ac = ["á","é","í","ó","ú","ñ"]
     s = s.replace(ac[0],"a")
     s = s.replace(ac[1],"e")
@@ -67,7 +67,7 @@ def plurarASingular(palabra):
 
 def procesar(i):
     global stopWl
-    l = acentos(i)
+    l = deleteAccent(i)
     l= re.sub('\W+',' ',l)
     l = minusculas(l)
     lista = l.split()
@@ -98,7 +98,6 @@ def main():
     files = os.listdir()
     files.remove('practica1.py')
     files.remove('StopWords.txt')
-    #print(files)
     aux = 0
     for i in files:
         file = open(i)
@@ -107,23 +106,29 @@ def main():
             diccionario(line,aux)
         aux += 1
 
-    #print(dicc)
-    
-    print("intesección: 1")
-    print("union:       2")
-    print("diferencia:  3")
     while True:
-        palabra1 = input("primera palabra: ")
-        palabra2 = input("segunda palabra: ")
-        opc = int(input("Cual es tu opcion: "))
-        if opc == 1:
-            print (intersect(dicc[palabra1],dicc[palabra2]))
-        elif opc == 2:
-            print (union(dicc[palabra1],dicc[palabra2]))
-        elif opc ==3:
-            print (diference(dicc[palabra1],dicc[palabra2]))
-        else:
-            break
+        search = input("Busqueda: ")
+        search = search.split()
+        search1 = []
+        for i in search:
+            try:
+                search1 = union(search1,dicc[i])
+            except :
+                pass
+        print(search1)
+            
+
+
+        # palabra2 = input("segunda palabra: ")
+        # opc = int(input("Cual es tu opcion: "))
+        # if opc == 1:
+        #     print (intersect(dicc[palabra1],dicc[palabra2]))
+        # elif opc == 2:
+        #     print (union(dicc[palabra1],dicc[palabra2]))
+        # elif opc ==3:
+        #     print (diference(dicc[palabra1],dicc[palabra2]))
+        # else:
+        #     break
 
 main()
         
