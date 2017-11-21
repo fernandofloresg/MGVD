@@ -1,4 +1,4 @@
-﻿algún
+﻿﻿algun
 alguna
 algunas
 alguno
@@ -31,7 +31,10 @@ consiguen
 consigues
 cual
 cuando
+<<<<<<< HEAD
+=======
 de
+>>>>>>> 56053fb1040b44e680c61795b3986b765294b64c
 dentro
 desde
 donde
@@ -108,7 +111,11 @@ podriamos
 podrian
 podrias
 por
+<<<<<<< HEAD
+que
+=======
 por qué
+>>>>>>> 56053fb1040b44e680c61795b3986b765294b64c
 porque
 primero
 puede
@@ -133,7 +140,7 @@ somos
 soy
 su
 sus
-también
+tambien
 teneis
 tenemos
 tener
@@ -177,3 +184,6 @@ vosotras
 vosotros
 voy
 yo
+https
+http
+
