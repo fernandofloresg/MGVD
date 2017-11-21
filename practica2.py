@@ -80,11 +80,8 @@ def main():
     stopW.close()
 
     #archi = open("test.txt",encoding='utf8')
-    path = "C:\MGVD\FC\"
+    path = "C:\\MGVD\\FC\\"
     files = os.listdir(path)
-    files.remove('practica1.py')
-    files.remove('practica2.py')
-    files.remove('StopWords.txt')
     aux =0
     for i in files:
         file = open(i)
