@@ -45,7 +45,6 @@ def procesar(i):
     global stopWl
     l = acentos(i)
     l= re.sub('\W+',' ',l)
-    l = minusculas(l)
     lista = l.split()
     aux = []
     for i in lista:
@@ -58,7 +57,7 @@ def procesar(i):
 def listaToString(lista):
     texto = ""
     for elemento in lista:
-        texto += elemento
+        texto += " " + elemento
     return texto
 
 def contruirifidf(tf,idf):
@@ -138,7 +137,7 @@ def main():
         documentosOriginales.append(h)
         l = procesar(h) #LIMPIEZA DE LOS DATOS
         l = listaToString(l)
-        print(aux)
+        print("procesando archivo: " ,aux)
         entities = getEntities(l)
         # Store the tokens as an index for the document and account for frequency.
         frec = dict()
@@ -159,12 +158,14 @@ def main():
         
     aux +=1
     iux = 0
+    print(dicc)
     for j in documentos:
         for i in j:
             dicc_idf[i+" "+str(iux)] = math.log10(float(aux)/float(len(dicc[i])))
         iux+=1
 
     dicc_tf_idf = contruirifidf(dicc_tf,dicc_idf)
+    print("tf-ifd ----------->", dicc_tf_idf)
 
     
     while (True):
@@ -195,6 +196,7 @@ def main():
                     eux += dicc_constfidf[j] * dicc_tf_idf[myll]
                 except:
                     eux = eux
+            print("puntaje: ", eux)
             if eux > 0 :#and eux>mejor:
                 l = [eux, documentosOriginales[i],i]
                 if resultados != []:
@@ -220,7 +222,8 @@ def main():
 ##                    print ("error al escribir el documento")
             eux = 0
         for i in resultados:
-            print(i)
+            print("El mejor resultado fue el documento con el indice",
+                documentosOriginales.index(i[1]))
         
 main()
         

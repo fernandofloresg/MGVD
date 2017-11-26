@@ -80,16 +80,17 @@ def main():
     stopW.close()
 
     #archi = open("test.txt",encoding='utf8')
-    path = "C:\\MGVD\\FC\\"
+    path = "C:\\MGVD\\TEST\\"
     files = os.listdir(path)
     aux =0
     for i in files:
-        file = open(i)
+        file = open(path + i, encoding = "utf-8")
         h = file.read()
         documentosOriginales.append(h)
         l = procesar(h)
         documentos.append(l)
         diccionario(l,aux)
+        print(l)
         # contar el tf
         size = len(l)
         for j in l:
