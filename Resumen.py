@@ -96,6 +96,7 @@ def main():
         s = scores.keys()
         score = []
 
+        #Para pasar los scores y sumar los obtenidos
         print(pos_tagged_tokens)
         for i in pos_tagged_tokens:
         	score.append([0])
