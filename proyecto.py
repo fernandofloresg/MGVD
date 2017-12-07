@@ -2,6 +2,7 @@
 import re
 import math
 import os
+import csv, operator
 global stopWl
 
 def acentos(s):
@@ -70,6 +71,7 @@ def main():
     dicc_idf = {}
     dicc_tf_idf= {}
     stopWl=[]
+    listMain = []
     listOfWords = []
     documentos = []
     documentosOriginales = []
@@ -90,8 +92,7 @@ def main():
         for word in file:
             if word not in listOfWords:
                 listOfWords.append(word)
-    # Aqui empezare a esribir la primera linea del archivo cs
-    # print(listOfWords)
+    listMain.append(listOfWords)
 
     for i in files:
         file = open(path + i, encoding = "utf-8")
@@ -100,7 +101,7 @@ def main():
         l = procesar(h)
         documentos.append(l)
         diccionario(l,aux)
-        print(l)
+        # print(l)
         # contar el tf
         size = len(l)
         for j in l:
@@ -116,7 +117,7 @@ def main():
         iux+=1
 
     dicc_tf_idf = contruirifidf(dicc_tf,dicc_idf)
-    print("-------\n"*3)
+    # print("-------\n"*3)
     # print(dicc_tf_idf)
     aux = 0
     for i in files:
@@ -133,92 +134,20 @@ def main():
             # # print(dicc_tf_idf[mykey])
             # print()
             try:
-                listaux.append(dicc_tf_idf[mykey])
+                listaux.append(str(dicc_tf_idf[mykey]))
             except :
-                listaux.append(0)
-        print(listaux)
+                listaux.append("0")
+        print("hello")
+        listMain.append(listaux)
         aux += 1
-        #     try:
-        #         listaux.append(float(file.count(i))/size)
-        #     except :
-        #         listaux.append(0)
-        # print(listaux)
-
-        # aqui sera cada line correspondiente a cadacarchiv
-
-    #     documentos.append(l)
-    #     diccionario(l,aux)
-    #     print(l)
-    #     # contar el tf
-    #     size = len(l)
-    #     for j in l:
-    #         eux = l.count(j)
-    #         dicc_tf[j+" "+str(aux)] = float(eux) / float(size)
-    #     aux += 1
-    #
-    # aux +=1
-    # iux = 0
-    # for j in documentos:
-    #     for i in j:
-    #         dicc_idf[i+" "+str(iux)] = math.log10(float(aux)/float(len(dicc[i])))
-    #     iux+=1
-    #
-    # dicc_tf_idf = contruirifidf(dicc_tf,dicc_idf)
-
-
-#     while (True):
-#         consulta = str(input("Escribe tu consulta: "))
-#         consulta = procesar(consulta)
-#         size = len(consulta)
-#         dicc_cons_tf = {}
-#         dicc_cons_idf = {}
-#
-#
-#         for i in consulta:
-#             dicc_cons_tf[i]=float(consulta.count(i)) / float(size)
-#             try :
-#                 dicc_cons_idf[i] = math.log10(float(aux)/float(len(dicc[i])))
-#             except :
-#                 dicc_cons_idf[i]= 0
-#
-#         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
-#
-#         q = dicc_constfidf.keys()
-#         eux = 0
-#         mejor = 0
-#         resultados = []
-#         for i in range(aux):
-#             for j in q:
-#                 myll=j+" "+str(i)
-#                 try :
-#                     eux += dicc_constfidf[j] * dicc_tf_idf[myll]
-#                 except:
-#                     eux = eux
-#             if eux > 0 :#and eux>mejor:
-#                 l = [eux, documentosOriginales[i],i]
-#                 if resultados != []:
-#                     if resultados[0][0]<l[0]:
-#                         resultados.insert(0,l)
-#                     elif resultados[-1][0]>l[0]:
-#                             resultados.append(l)
-#                     else:
-#                         a = 0
-#                         for i in resultados:
-#                             if i[0]<l[0]:
-#                                 resultados.insert(a,l)
-#                                 break
-#                             a += 1
-#                 else:
-#                     resultados.append(l)
-# ##                mejor = eux
-# ##                print(eux)
-# ##                print(documentos[i])
-# ##                try :
-# ##                    print(documentosOriginales[i])
-# ##                except:
-# ##                    print ("error al escribir el documento")
-#             eux = 0
-#         for i in resultados:
-#             print(i)
+    print(listMain)
+    with open("output.cvs","w") as out:
+        for list in listMain:
+            aux = ""
+            for p in list:
+                aux += p + ","
+            aux = aux[:-1]
+            aux += "\n"
+            out.write(aux)
 
 main()
