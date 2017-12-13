@@ -141,6 +141,7 @@ def main():
         listMain.append(listaux)
         aux += 1
     print(listMain)
+    
     with open("output.cvs","w") as out:
         for list in listMain:
             aux = ""
