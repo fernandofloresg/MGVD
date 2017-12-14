@@ -155,12 +155,16 @@ def main():
         S = 0
         NS = 0
         for i in range(20):
-            if list_score_S[-1] > list_score_NS[-1]:
-                S += 1
-                list_score_S.pop()
-            else:
-                NS += 1
-                list_score_NS.pop()
+            try:
+                if list_score_S[-1] > list_score_NS[-1]:
+                    S += 1
+                    list_score_S.pop()
+                else:
+                    NS += 1
+                    list_score_NS.pop()
+            except :
+                pass 
+
         porcentaje = (S * 100)/20
         print("porcentaje de sensacionalista: ",porcentaje, "%")
 
