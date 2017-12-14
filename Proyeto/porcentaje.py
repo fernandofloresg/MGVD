@@ -40,7 +40,7 @@ def procesar(i):
     global stopWl
     l = acentos(i)
     l= re.sub('\W+',' ',l)
-    l = minusculas(l)
+    #l = minusculas(l)
     lista = l.split()
     aux = []
     for i in lista:
@@ -82,15 +82,18 @@ def main():
 
 
 
+
     # dicc_tf_idf = contruirifidf(dicc_tf,dicc_idf)
 
     sensac = open("Sensacionalista.txt")
     dicc_sensacionalista = json.loads(sensac.read())
-    # print(dicc_sensacionalista)
     sensac.close()
+    print(dicc_sensacionalista)
     sensac = open("NoSensacionalistas.txt")
     dicc_noSensacionalista = json.loads(sensac.read())
-    # print(dicc_sensacionalista)
+    sensac.close()
+    print(dicc_noSensacionalista)
+    aux = 20 #numero total de documentos
 
 
     while (True):
@@ -103,13 +106,32 @@ def main():
 
         for i in consulta:
             dicc_cons_tf[i]=float(consulta.count(i)) / float(size)
-            try :
-                dicc_cons_idf[i] = math.log10(float(aux)/float(len(dicc[i])))
-            except :
-                dicc_cons_idf[i]= 0
+            #print(i , dicc_cons_tf[i])
+            #print(dicc_sensacionalista)
+            dicc_cons_idf[i] = 0
+            consulta_counter = 0
+            for j in range(25):
+                new_i = i + " " + str(j)
+                print(new_i)
 
+                if new_i in dicc_sensacionalista:
+                    if dicc_sensacionalista[new_i] > 0 :
+                        consulta_counter += 1
+                else: 
+                    len_noSensacionalista = 0
+                if new_i in dicc_noSensacionalista:
+                    if dicc_noSensacionalista[new_i] > 0 :
+                        consulta_counter += 1
+                else: 
+                    len_noSensacionalista = 0
+                print(consulta_counter)
+            if i in  dicc_cons_idf:
+                dicc_cons_idf[i] = math.log10(float(aux)/float(consulta_counter))
+            else : 
+                dicc_cons_idf[i] = 0
+        print(dicc_cons_tf,dicc_cons_idf)
         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
-
+        print(dicc_constfidf)
 
 
         q = dicc_constfidf.keys()

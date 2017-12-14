@@ -11,7 +11,7 @@ def hello():
 def turn_on():
     url = request.form['url']
     os.system('python consulta.py ' + url)
-    return '', 204  # no content
+    return 'success'
 
 if __name__ == "__main__":
     app.run()
