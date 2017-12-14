@@ -83,6 +83,9 @@ def main():
     #archi = open("test.txt",encoding='utf8')
     path = "/home/david/Escritorio/MGVD/MGVD/testProyect/"
     files = os.listdir(path)
+    #Eliminar archivos que no son noticias de la lista
+    files.remove('StopWords.txt')
+    files.remove('proyecto.py')
     aux =0
 
     # Recorremos todas las noticias para obtener todas
