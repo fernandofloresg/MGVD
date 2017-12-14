@@ -80,19 +80,20 @@ def main():
     stopWl = leerStopW(stopW)
     stopW.close()
 
-
-
     # dicc_tf_idf = contruirifidf(dicc_tf,dicc_idf)
 
     sensac = open("Sensacionalista.txt")
     dicc_sensacionalista = json.loads(sensac.read())
+    sensac.close()
+    sensac = open("dicc_S.txt")
+    dicc_S = json.loads(sensac.read())
     # print(dicc_sensacionalista)
     sensac.close()
     sensac = open("NoSensacionalistas.txt")
     dicc_noSensacionalista = json.loads(sensac.read())
     # print(dicc_sensacionalista)
 
-
+    aux = 22
     while (True):
         consulta = str(input("Escribe tu consulta: "))
         consulta = procesar(consulta)
@@ -104,26 +105,30 @@ def main():
         for i in consulta:
             dicc_cons_tf[i]=float(consulta.count(i)) / float(size)
             try :
-                dicc_cons_idf[i] = math.log10(float(aux)/float(len(dicc[i])))
+                dicc_cons_idf[i] = math.log10(float(aux)/float(len(dicc_S[i])))
             except :
                 dicc_cons_idf[i]= 0
 
         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
 
+        print(dicc_cons_tf)
+        print(dicc_cons_idf)
 
+        print(dicc_constfidf)
 
         q = dicc_constfidf.keys()
         r = dicc_sensacionalista.keys()
         eux = 0
         mejor = 0
         resultados = []
-        for i in range(25):
+        for i in range(aux):
             for j in q:
                 myll=j+" "+str(i)
                 try :
                     eux += dicc_constfidf[j] * dicc_tf_idf[myll]
                 except:
                     eux = eux
+            print(eux)
             if eux > 0 :#and eux>mejor:
                 print(eux)
                 # l = [eux, documentosOriginales[i],i]

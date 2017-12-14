@@ -126,6 +126,9 @@ def main():
             except :
                 dicc_cons_idf[i]= 0
 
+        print(dicc)
+        print(dicc_cons_idf)
+
         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
 
         q = dicc_constfidf.keys()
@@ -163,7 +166,7 @@ def main():
 ##                except:
 ##                    print ("error al escribir el documento")
             eux = 0
-        for i in resultados:
-            print(i)
+        # for i in resultados:
+        #     print(i)
 
 main()
