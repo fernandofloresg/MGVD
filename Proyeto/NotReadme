@@ -1,0 +1,6 @@
+El programa "proyecto.py" solo reorre todas la noticias en archios txt
+y genera el archivo "output.cvs" el cual tiene en su primera linea contiene
+todas las palabrasque se pueden encontrar en los docuemtos. Las siguientes
+lineas contienen los puntajes de cada palabra.
+Cada linea representa un documento 
+tendras que cambiar el path !!! o cosas asi
