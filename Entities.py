@@ -86,12 +86,13 @@ def getEntities(txt):
     
     for s in sentences:
         tags = [treetaggerwrapper.make_tags(tagger.tag_text(s))]
+        print(tags)
         for tag in tags:
             for t in tag:
                 token = t[0]
                 pos   = t[1]
                 if pos == previous_pos and pos.startswith('N'):
-                    
+                    print()
                     current_entity_chunk.append(token)
                 elif pos.startswith('N'):
                     if current_entity_chunk != []:
@@ -99,8 +100,10 @@ def getEntities(txt):
                         if(word[0].isupper()):
                             all_entity_chunks.append((' '.join(current_entity_chunk), pos))
                     current_entity_chunk = [token]
+                else: 
+                    all_entity_chunks.append((' '.join(current_entity_chunk), pos))
                 previous_pos = pos
-        
+        all_entity_chunks.append((' '.join(current_entity_chunk), pos))
     return all_entity_chunks
 
 def transformDictoList(dict):
@@ -139,6 +142,7 @@ def main():
         l = listaToString(l)
         print("procesando archivo: " ,aux)
         entities = getEntities(l)
+        print(entities)
         # Store the tokens as an index for the document and account for frequency.
         frec = dict()
         for c in entities:
@@ -172,19 +176,27 @@ def main():
         consulta = str(input("Escribe tu consulta: "))
         consulta = procesar(consulta)
         size = len(consulta)
+        l = listaToString(consulta)
+        print("procesando consulta: ")
+        entities = getEntities(l)
+
         dicc_cons_tf = {}
         dicc_cons_idf = {}
         
 
-        for i in consulta:
+        for i in entities:
+            print(i[0])
+            i = i[0]
             dicc_cons_tf[i]=float(consulta.count(i)) / float(size)
             try :
                 dicc_cons_idf[i] = math.log10(float(aux)/float(len(dicc[i])))
             except :
-                dicc_cons_idf[i]= 0
+                print('e')
+                #dicc_cons_idf[i] += 0
 
         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
         
+        print(dicc_cons_idf)
         q = dicc_constfidf.keys()
         eux = 0
         mejor = 0
@@ -193,7 +205,7 @@ def main():
             for j in q:
                 myll=j+" "+str(i)
                 try :
-                    eux += dicc_constfidf[j] * dicc_tf_idf[myll]
+                    eux += dicc_cons_idfstfidf[j] * dicc_tf_idf[myll]
                 except:
                     eux = eux
             print("puntaje: ", eux)
