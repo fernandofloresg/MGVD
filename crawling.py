@@ -8,7 +8,7 @@ import time, re
 num_threads = 6
 page_number = 1 - num_threads
 URLs_queue  = Queue(maxsize=5000)
-initial_URL ='https://es.wikipedia.org/wiki/Filipinas'
+initial_URL ='http://www.uabc.mx/'
 
 #Prevent the crawling of visitated urls
 visitated_urls = []

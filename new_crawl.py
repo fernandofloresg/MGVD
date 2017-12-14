@@ -8,7 +8,7 @@ import time, re
 num_threads = 10
 page_number = 1 - num_threads
 URLs_queue  = Queue()
-initial_URL ='https://es.wikipedia.org/wiki/Filipinas'
+initial_URL ='http://www.uabc.mx/'
 
 def getURLs(URL):
     extractor = Extractor(extractor='KeepEverythingExtractor', url=URL)

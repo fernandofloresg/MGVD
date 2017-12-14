@@ -111,54 +111,58 @@ def main():
 
         dicc_constfidf= contruirifidf(dicc_cons_tf,dicc_cons_idf)
 
-        print(dicc_cons_tf)
-        print(dicc_cons_idf)
+        # print(dicc_cons_tf)
+        # print(dicc_cons_idf)
 
-        print(dicc_constfidf)
-
+        # print(dicc_constfidf)
         q = dicc_constfidf.keys()
         r = dicc_sensacionalista.keys()
         eux = 0
         mejor = 0
+        list_score_S=[]
+        list_score_NS=[]
+
         resultados = []
         for i in range(aux):
             for j in q:
                 myll=j+" "+str(i)
                 try :
-                    eux += dicc_constfidf[j] * dicc_tf_idf[myll]
+                    eux += dicc_constfidf[j] * dicc_sensacionalista[myll]
+                    # print(eux)
                 except:
                     eux = eux
-            print(eux)
             if eux > 0 :#and eux>mejor:
-                print(eux)
-                # l = [eux, documentosOriginales[i],i]
-                # if resultados != []:
-                #     if resultados[0][0]<l[0]:
-                #         resultados.insert(0,l)
-                #     elif resultados[-1][0]>l[0]:
-                #             resultados.append(l)
-                #     else:
-                #         a = 0
-                #         for i in resultados:
-                #             if i[0]<l[0]:
-                #                 resultados.insert(a,l)
-                #                 break
-                #             a += 1
-                # else:
-                #     resultados.append(l)
-##                mejor = eux
-##                print(eux)
-##                print(documentos[i])
-##                try :
-##                    print(documentosOriginales[i])
-##                except:
-##                    print ("error al escribir el documento")
+                list_score_S.append(eux)
+            list_score_S.sort()
             eux = 0
-        #
-        # for i in resultados:
-        #     print(i)
-        #     print(resultados.index(i))
+        for i in range(aux):
+            for j in q:
+                myll=j+" "+str(i)
+                try :
+                    eux += dicc_constfidf[j] * dicc_noSensacionalista[myll]
+                    # print(eux)
+                except:
+                    eux = eux
+            if eux > 0 :#and eux>mejor:
+                list_score_NS.append(eux)
+            list_score_NS.sort()
+            eux = 0
 
+        print(list_score_S)
+        print()
+        print(list_score_NS)
+
+        S = 0
+        NS = 0
+        for i in range(20):
+            if list_score_S[-1] > list_score_NS[-1]:
+                S += 1
+                list_score_S.pop()
+            else:
+                NS += 1
+                list_score_NS.pop()
+        porcentaje = (S * 100)/20
+        print("porcentaje de sensacionalista: ",porcentaje, "%")
 
 
 
