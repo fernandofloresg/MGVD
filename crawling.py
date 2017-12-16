@@ -9,7 +9,7 @@ num_threads = 6
 page_number = 1 - num_threads
 URLs_queue  = Queue(maxsize=5000)
 initial_URL ='http://www.uabc.mx/'
-
+we_are_going=  0
 #Prevent the crawling of visitated urls
 visitated_urls = []
 obtained_links = 0
