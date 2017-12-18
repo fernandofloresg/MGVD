@@ -4,7 +4,7 @@ import os
 import json
 global stopWl
 import sys
-#from boilerpipe.extract import Extractor
+from boilerpipe.extract import Extractor
 
 def acentos(s):
     ac = ["á","é","í","ó","ú","ñ"]
@@ -60,9 +60,9 @@ def contruirifidf(tf,idf):
         #print(i," : ", dicc[i])
     return dicc
 
-#def getContent(url):
-    #extractor = Extractor(extractor='KeepEverythingExtractor', url=url)
-    #return extractor.getText()
+def getContent(url):
+    extractor = Extractor(extractor='KeepEverythingExtractor', url=url)
+    return extractor.getText()
 
 def leerStopW(archi):
     stopWl =[]
@@ -103,7 +103,7 @@ def main():
     url = str(sys.argv[1])
     if len(url) == 0:
         url = 'www.uabc.edu.mx'#url dado por vista
-    #consulta = getContent(url) # texto de consulta obtenida de noticia
+    consulta = getContent(url) # texto de consulta obtenida de noticia
     text_entry = 'Ford de México descartó el traslado de la producción de la nueva generación del modelo Fusion a China, es decir, el modelo 2018, pero no aclaró si a partir de 2019 este vehículo ya no se fabricará en Hermosillo. Este miércoles, la agencia Reuters dio a conocer que Ford planea consolidar la producción global del Fusion en China a partir del 2020 y de ahí exportarlos hacia Estados Unidos y Europa. "No tenemos planes de exportar la nueva generación del Fusion desde China a Norte América o Europa". "Fusion es una parte importante de nuestro portafolio de automóviles. Tendremos más información para compartir de la nueva generación del Fusion mas adelante", indicó Ford vía correo electrónico. De enero a noviembre, Ford fabricó 124 mil 612 unidades de Fusion, 52% menos que en el mismo periodo del año anterior cuando produjo 258 mil 596 unidades. Medios locales en Hermosillo reportaron hace algunas semanas que Ford planea recortar 600 puestos de trabajo en la planta por cambios en la línea de producción.'
     consulta = procesar(consulta)
     size = len(consulta)
